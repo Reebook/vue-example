@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<header>  
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</header>  
+<body>  
+  <div id="app"  class="row">  
+    <h1>Práctica 7.2</h1>  
+    <p>       
+      <router-link to="/distance">Distance</router-link>  
+      <router-link to="/temperature">Temperature</router-link>  
+      <router-link to="/weight">Weight</router-link>  
+    </p>
+    
+    <router-view></router-view>
+    
+  </div>
+  
+  <script>
+    const distance = { template: '#tmpl' }
+    const temperature = { template: '#tmp2' }
+    const weight = { template: '#tmp3' }
+    Vue.config.devtools = true
+    const routes = [
+      { path: '/',component: distance},
+      { path: '/distance',component: distance},
+      { path: '/temperature', component: temperature },
+      { path: '/weight', component: weight }
+    ]
+  
+    const router = new VueRouter({
+      mode: 'history',
+      routes: routes
+    })
+  
+  var app = new Vue({
+    router,
+    data: {
+      professors: [
+        {'id':4056,'name':'Juan Perez ','degree':'M.Sc.',
+         'email':'juan.perez@univ.ac','phone':'8944556'},
+        {'id':3110,'name':'Pedro Castro','degree':'Ph.D',
+         'email':'pedro.castro@univ.ac','phone':'8944550'},
+        {'id':2856,'name':'Manuel Salas','degree':'Lic.',
+         'email':'manuel.salas@univ.ac','phone':'8944455'},
+        {'id':1788,'name':'Oscar Mora','degree':'M.Sc.',
+         'email':'oscar.mora@univ.ac','phone':'8944675'},
+        {'id':6547,'name':'Pablo Cortez','degree':'Lic.',
+        'email':'pablo.cortez@univ.ac','phone':'8944999'}
+      ]
+    },
+    methods: {
+      convert: function() {
+          // `this` inside methods points to the Vue instance
+          var convertFrom = this.$refs.conversion.selectedOptions;
+          var convertTo   = this.$refs.to.selectedOptions;
+          var dataToConvert = this.$refs.numberData.value;
+          var selectFrom  = convertFrom[0].label;              
+          var result = 0;
+  
+          if(selectFrom === 'Metros'){
+            // `event` is the native DOM event
+            switch(convertTo[0].label){
+                case 'Kilometros':
+                  result = dataToConvert/1000;
+                  break;
+                case 'Metros':
+                  result = dataToConvert;
+                  break;
+                case 'Centímetros':
+                  result = dataToConvert*100;
+                  break;
+                case 'Millas':
+                  result = dataToConvert*0.000621371;
+                  break;
+                case 'Yardas':
+                  result = dataToConvert*1.09361;
+                  break;
+                case 'Pies':
+                  result = dataToConvert*3.28084;
+                  break;
+                case 'Pulgadas':
+                  result = dataToConvert*39.3701;
+                  break;
+            }
+          }
+  
+          if(selectFrom === 'Kilometros'){
+          // `event` is the native DOM event
+              switch(convertTo[0].label){
+                case 'Kilometros':
+                  result = dataToConvert;
+                  break;
+                case 'Metros':
+                  result = dataToConvert*1000;
+                  break;
+                case 'Centímetros':
+                  result = dataToConvert*100000;
+                  break;
+                case 'Millas':
+                  result = dataToConvert*0.621371;
+                  break;
+                case 'Yardas':
+                  result = dataToConvert*1093.61;
+                  break;
+                case 'Pies':
+                  result = dataToConvert*3280.84;
+                  break;
+                case 'Pulgadas':
+                  result = dataToConvert*39370.1;
+                  break;
+              }
+            }
+  
+          if(selectFrom === 'Centímetros'){
+            // `event` is the native DOM event
+              switch(convertTo[0].label){
+                case 'Kilometros':
+                  result = dataToConvert*100000;
+                  break;
+                case 'Metros':
+                  result = dataToConvert/100;
+                  break;
+                case 'Centímetros':
+                  result = dataToConvert;
+                  break;
+                case 'Millas':
+                  result = dataToConvert/160934;
+                  break;
+                case 'Yardas':
+                  result = dataToConvert*0.0109361;
+                  break;
+                case 'Pies':
+                  result = dataToConvert*0.0328083;
+                  break;
+                case 'Pulgadas':
+                  result = dataToConvert*0.3936996;
+                  break;
+              }
+          }
+  
+          if(selectFrom === 'Millas'){
+            // `event` is the native DOM event
+              switch(convertTo[0].label){
+                case 'Kilometros':
+                  result = dataToConvert*1.60934;
+                  break;
+                case 'Metros':
+                  result = dataToConvert*1609.34;
+                  break;
+                case 'Centímetros':
+                  result = dataToConvert*160934;
+                  break;
+                case 'Millas':
+                  result = dataToConvert;
+                case 'Yardas':
+                  result = dataToConvert*1760;
+                  break;
+                case 'Pies':
+                  result = dataToConvert*5280;
+                  break;
+                case 'Pulgadas':
+                  result = dataToConvert*0.0833333;
+                  break;
+              }
+          }
+  
+          if(selectFrom === 'Yardas'){
+            // `event` is the native DOM event
+              switch(convertTo[0].label){
+                case 'Kilometros':
+                  result = dataToConvert/1094;
+                  break;
+                case 'Metros':
+                  result = dataToConvert*0.9144;
+                  break;
+                case 'Centímetros':
+                  result = dataToConvert*91.44;
+                  break;
+                case 'Millas':
+                  result = dataToConvert/1760;
+                  break;
+                case 'Yardas':
+                  result = dataToConvert;
+                  break;
+                case 'Pies':
+                  result = dataToConvert*3;
+                  break;
+                case 'Pulgadas':
+                  result = dataToConvert*36;
+                  break;
+              }
+          }
+  
+          if(selectFrom === 'Pies'){
+            // `event` is the native DOM event
+              switch(convertTo[0].label){
+                case 'Kilometros':
+                  result = dataToConvert/3281;
+                  break;
+                case 'Metros':
+                  result = dataToConvert*0.3048;
+                  break;
+                case 'Centímetros':
+                  result = dataToConvert*30.48;
+                  break;
+                case 'Millas':
+                  result = dataToConvert/5280;
+                  break;
+                case 'Yardas':
+                  result = dataToConvert*0.333333;
+                  break;
+                case 'Pies':
+                  result = dataToConvert;              
+                  break;
+                case 'Pulgadas':
+                  result = dataToConvert*12;
+                  break;
+              }
+          }
+  
+          if(selectFrom === 'Pulgadas'){
+            // `event` is the native DOM event
+              switch(convertTo[0].label){
+                case 'Kilometros':
+                  result = dataToConvert/39370;
+                break;
+                case 'Metros':
+                  result = dataToConvert*0.0254;
+                case 'Centímetros':
+                  result = dataToConvert*2.54;
+                break;
+                case 'Millas':
+                  result = dataToConvert/5280;
+                case 'Yardas':
+                  result = dataToConvert/63360;
+                break;
+                case 'Pies':
+                  result = dataToConvert/12;
+                break;
+                case 'Pulgadas':
+                  result = dataToConvert;
+                break;
+              }
+          }
+  
+          this.$refs.convertido.innerHTML = result;
+      },
+      convert_temp: function(){
+          var convertFrom   = this.$refs.conversion_temp.selectedOptions;
+          var convertTo     = this.$refs.to._temp.selectedOptions;
+          var dataToConvert = this.$refs.numberData.value;
+          var selectFrom    = convertFrom[0].label;              
+          var result        = 0;
+  
+          if(selectFrom === 'celsius'){
+            // `event` is the native DOM event
+            switch(convertTo[0].label){
+                case 'celsius':
+                  result = dataToConvert;
+                  break;
+                case 'kelvin':
+                  result = dataToConvert + 273.15;
+                  break;
+                case 'fahrenheit':              
+                  result = (dataToConvert * 9/5) + 32;
+                  break;              
+            }
+          }
+  
+          if(selectFrom === 'kelvin'){
+            // `event` is the native DOM event
+            switch(convertTo[0].label){
+                case 'celsius':
+                  result = dataToConvert - 273.15;
+                  break;
+                case 'kelvin':
+                  result = dataToConvert;
+                  break;
+                case 'fahrenheit':                            
+                  result = (dataToConvert - 273.15) * 9/5 + 32;
+                  break;              
+            }
+          }
+  
+          if(selectFrom === 'fahrenheit'){
+            // `event` is the native DOM event
+            switch(convertTo[0].label){
+                case 'celsius':              
+                  result = dataToConvert - 32 * 5/9;
+                  break;
+                case 'kelvin':                            
+                  result = (dataToConvert - 32) * 5/9 + 273.15;
+                  break;
+                case 'fahrenheit':                            
+                  result = dataToConvert;
+                  break;              
+            }
+          }
+          this.$refs.convertido_temp.innerHTML = result;
+      },
+      convert_weight: function(){
+          var convertFrom   = this.$refs.conversion_temp.selectedOptions;
+          var convertTo     = this.$refs.to._temp.selectedOptions;
+          var dataToConvert = this.$refs.numberData.value;
+          var selectFrom    = convertFrom[0].label;              
+          var result        = 0;
+  
+          if(selectFrom === 'celsius'){
+            // `event` is the native DOM event
+            switch(convertTo[0].label){
+                case 'celsius':
+                  result = dataToConvert;
+                  break;
+                case 'kelvin':
+                  result = dataToConvert + 273.15;
+                  break;
+                case 'fahrenheit':              
+                  result = (dataToConvert * 9/5) + 32;
+                  break;              
+            }
+          }
+  
+          if(selectFrom === 'kelvin'){
+            // `event` is the native DOM event
+            switch(convertTo[0].label){
+                case 'celsius':
+                  result = dataToConvert - 273.15;
+                  break;
+                case 'kelvin':
+                  result = dataToConvert;
+                  break;
+                case 'fahrenheit':                            
+                  result = (dataToConvert - 273.15) * 9/5 + 32;
+                  break;              
+            }
+          }
+  
+          if(selectFrom === 'fahrenheit'){
+            // `event` is the native DOM event
+            switch(convertTo[0].label){
+                case 'celsius':              
+                  result = dataToConvert - 32 * 5/9;
+                  break;
+                case 'kelvin':                            
+                  result = (dataToConvert - 32) * 5/9 + 273.15;
+                  break;
+                case 'fahrenheit':                            
+                  result = dataToConvert;
+                  break;              
+            }
+          }
+          this.$refs.convertido_temp.innerHTML = result;
+      },
+    },
+  }).$mount('#app')
+  
+  Vue.component('professor-item', {
+        props: ['name','degree','email','phone'],
+        template: '<tr><td>{{ name }}</td><td>{{ degree }}</td><td>{{ email }}</td><td>{{ phone }}</td></tr>'
+  })  
+  
+  </script>
+  <template id="tmpl">
+      
+    <div class="book-item">
+    <br>   
+      <input value="" type="number" ref="numberData"/>
+      <button v-on:click="convert">Convertir</button>
+      <br>
+      <br>
+      <div>
+        <select name="conversion" id="conversion" ref="conversion" v-on:change="convert"> 
+          <option value="meters">Metros</option>
+          <option value="km">Kilometros</option>
+          <option value="mercedes">Centímetros</option>
+          <option value="ml">Millas</option>
+          <option value="yard">Yardas</option>
+          <option value="pies">Pies</option>
+          <option value="pulgadas">Pulgadas</option>
+        </select>
+        a
+        <select name="conversion" id="to" ref="to" v-on:change="convert">
+          <option value="meters">Metros</option>
+          <option value="km">Kilometros</option>
+          <option value="mercedes">Centímetros</option>
+          <option value="ml">Millas</option>
+          <option value="yard">Yardas</option>
+          <option value="pies">Pies</option>
+          <option value="pulgadas">Pulgadas</option>
+        </select>
+        <p ref="convertido"></p>
+    </div>
+    </div>
+  </template>
+  <template type="text/x-template" id="tmp2">
+    
+    <div>
+       <br>
+      <input value="" type="number" ref="numberData"/>
+      <button v-on:click="convert_temp">Convertir temperatura</button>
+      <br>
+      <br>
+      <div>
+        <select name="conversion" id="conversion_temp" ref="conversion_temp" v-on:change="convert_temp"> 
+          <option value="celsius">celsius</option>
+          <option value="kelvin">kelvin</option>
+          <option value="fahrenheit">fahrenheit</option>     
+        </select>
+        a
+        <select name="conversion" id="to_temp" ref="to_temp" v-on:change="convert_temp">
+          <option value="celsius">celsius</option>
+          <option value="kelvin">kelvin</option>
+          <option value="fahrenheit">fahrenheit</option>   
+        </select>
+        <p ref="convertido_temp"></p>
+    </div>
+    </div>
+  </template>
+  
+  <template id="tmp3">
+      
+    <div>
+      <br>   
+      <input value="" type="number" ref="numberData"/>
+      <button v-on:click="conversion_weight">Convertir</button>
+      <br>
+      <br>
+      <div>
+        <select name="conversion" id="conversion_weight" ref="conversion_weight" v-on:change="conversion_weight"> 
+          <option value="kilos">kilos</option>
+          <option value="gramos">gramos</option>
+          <option value="toneladas">toneladas métricas</option>
+          <option value="libras">libras</option>
+          <option value="onzas">onzas</option>
+        </select>
+        a
+        <select name="conversion" id="to_weight" ref="to_weight" v-on:change="conversion_weight">
+          <option value="kilos">kilos</option>
+          <option value="gramos">gramos</option>
+          <option value="toneladas">toneladas métricas</option>
+          <option value="libras">libras</option>
+          <option value="onzas">onzas</option>
+        </select>
+        <p ref="convertido"></p>
+    </div>
+    </div>
+  </template>
+  </body>
+  </html>
